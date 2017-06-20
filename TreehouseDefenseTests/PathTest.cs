@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using System.Linq;
+using Xunit;
 
 namespace TreehouseDefense.Tests
 {
@@ -36,6 +37,34 @@ namespace TreehouseDefense.Tests
             var target = _path3;
 
             Assert.False(target.IsOnPath(new MapLocation(0, 0, _map3x3)));
+        }
+
+        [Fact]
+        public void GetLocationAtBeginningOfPath()
+        {
+            var target = _path3;
+            Assert.Equal(_pathLocations3.First(), target.GetLocationAt(0));
+        }
+
+        [Fact]
+        public void GetLocationAtEndOfPath()
+        {
+            var target = _path3;
+            Assert.Equal(_pathLocations3.Last(), target.GetLocationAt(_pathLocations3.Length - 1));
+        }
+
+        [Fact]
+        public void GetLocationNotOnPath()
+        {
+            var target = _path3;
+            Assert.Null(target.GetLocationAt(_pathLocations3.Length + 1));
+        }
+
+        [Fact]
+        public void GetLocationAtOneStepAfterEndOfPath()
+        {
+            var target = _path3;
+            Assert.Null(target.GetLocationAt(_pathLocations3.Length));
         }
     }
 }
